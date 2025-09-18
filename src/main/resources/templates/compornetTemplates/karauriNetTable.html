@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<!-- 空売りネット表 -->
+	<div th:fragment="karauriNet-Table">
+
+		<style>
+			/* 増減率・増減量のスタイル */
+			td.change-rate,
+			td.change-amount {
+				font-weight: bold;
+			}
+
+			/* 増減率と増減量の色付け */
+			td.change-rate,
+			td.change-amount {
+				color: red;
+			}
+
+			td.change-rate[data-value^="-"],
+			td.change-amount[data-value^="-"] {
+				color: green;
+			}
+		</style>
+
+		<table id="karauriTable">
+			<!-- テーブル名 -->
+			<thead>
+				<tr>
+					<th>計算日</th>
+					<th>空売り者</th>
+					<th>残高割合</th>
+					<th>増減率</th>
+					<th>残高数量</th>
+					<th>増減量</th>
+					<th>備考</th>
+				</tr>
+			</thead>
+
+			<!-- 値 -->
+			<tbody>
+				<tr th:each="shortBalance : ${karauriNetJsonFileEntityList}">
+					<!-- 空売りネット表 -->
+					<td th:text="${shortBalance.calculationDate}"></td>
+					<!-- 空売り者 -->
+					<td th:text="${shortBalance.shortSeller}"></td>
+					<!-- 残高割合 -->
+					<td th:text="${shortBalance.balanceRatio}"></td>
+					<!-- 増減率 -->
+					<td class="change-rate" th:attr="data-value=${shortBalance.changeRate}"
+						th:text="${shortBalance.changeRate}"></td>
+					<!-- 残高数量 -->
+					<td th:text="${shortBalance.balanceQuantity}"></td>
+					<!-- 増減量 -->
+					<td class="change-amount" th:attr="data-value=${shortBalance.changeAmount}"
+						th:text="${shortBalance.changeAmount}"></td>
+					<!-- 備考 -->
+					<td th:text="${shortBalance.remarks}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+
+</html>

@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+/* ==============================
+   基本スタイル
+   ============================== */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: rgb(55, 56, 60);
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin: 0 auto;
+    width: 70%;
+    height: 100vh;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+/* ==============================
+   リンクスタイル
+   ============================== */
+a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* ==============================
+   見出し（タイトル）
+   ============================== */
+.title-lv1,
+.title-lv2,
+.title-lv3 {
+    color: #cccccc;
+    font-weight: normal;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.title-lv1 {
+    font-size: 1.5em;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+.title-lv2 {
+    font-size: 1.5em;
+	padding-left: 20px;
+	border-bottom: 1px solid #cccccc;
+}
+
+.title-lv3 {
+    font-size: 1.25em;
+    margin: 0;
+	border-bottom: 1px solid #cccccc;
+}
+
+.text-lv1 {
+	padding-left: 25px;
+	color: #cccccc;
+}
+
+/* ==============================
+   エラーメッセージ
+   ============================== */
+.errorText {
+    color: #FF6B6B;
+    background-color: #2E2F33;
+    border: 1px solid #FF6B6B;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+.errorText:hover {
+    background-color: #3E3F44;
+}
+
+/* ==============================
+   テーブルスタイル
+   ============================== */
+table {
+    width: 90%;
+    border-collapse: collapse;
+    background-color: #2a2a2a;
+    font-size: 14px;
+}
+
+th, td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #333;
+    color: #ddd;
+}
+
+tr {
+    border-bottom: 1px solid #444;
+}
+
+tr:hover {
+    background-color: #444;
+}

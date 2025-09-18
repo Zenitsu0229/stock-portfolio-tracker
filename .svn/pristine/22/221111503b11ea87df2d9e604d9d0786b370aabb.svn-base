@@ -1,0 +1,16 @@
+spring.application.name=InvestmentTools
+
+#データベース
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/Investment
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# SQLをログに出力（デバッグ用）
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+
+# JPAの自動DDL設定
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.open-in-view=false

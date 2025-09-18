@@ -1,0 +1,54 @@
+@charset "UTF-8";
+/* 全体の背景をダークカラーに */
+body {
+    background-color: #222;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* テーブルのデザイン */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #333;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* ヘッダーのスタイル */
+th {
+    background-color: #444;
+    padding: 10px;
+    border: 1px solid #555;
+}
+
+/* 各セルのスタイル */
+td {
+    padding: 10px;
+    border: 1px solid #555;
+}
+
+/* 偶数行を少し暗くして見やすく */
+tbody tr:nth-child(even) {
+    background-color: #2b2b2b;
+}
+
+/* ホバー時のエフェクト */
+tbody tr:hover {
+    background-color: #444;
+    transition: 0.3s;
+}
+
+/* 利益（プラス）のスタイル */
+.profit {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+/* 損失（マイナス）のスタイル */
+.loss {
+    color: #4dff4d;
+    font-weight: bold;
+}

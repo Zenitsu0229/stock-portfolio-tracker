@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>トレード日記作成</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/CommonStyle.css}">
+	<style>
+		form {
+			max-width: 600px;
+			padding-left: 30px;
+			border-radius: 10px;
+		}
+
+		label {
+			display: block;
+			margin-top: 15px;
+		}
+
+		input,
+		select,
+		textarea {
+			width: 100%;
+			padding: 8px;
+			background-color: #333;
+			color: #fff;
+			border: 1px solid #555;
+			border-radius: 5px;
+		}
+
+		button {
+			margin-top: 20px;
+			padding: 10px;
+			background-color: #4caf50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			width: 100%;
+		}
+
+		button:hover {
+			background-color: #45a049;
+		}
+
+		.gain {
+			color: red;
+		}
+
+		.loss {
+			color: #00dd00;
+			/* 暗めの緑（背景黒向け） */
+		}
+
+		/* リストのスタイル */
+		.urlList {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		.urls {
+			margin: 20px 20px;
+			padding: 10px;
+			border-radius: 5px;
+			transition: transform 0.2s ease-in-out;
+		}
+
+		.urls:hover {
+			transform: scale(1.01);
+			background-color: grey;
+		}
+
+		/* リンクのスタイル */
+		a {
+			text-decoration: none;
+			color: #0073e6;
+			font-weight: bold;
+			font-size: 18px;
+		}
+
+		a:hover {
+			color: #005bb5;
+		}
+
+
+		@media (max-width: 768px) {
+			table {
+				display: none;
+			}
+
+			.trade-card {
+				border: 1px solid #444;
+				margin: 10px 0;
+				padding: 10px;
+				background-color: #222;
+				color: #ddd;
+				border-radius: 8px;
+			}
+
+			.trade-card div {
+				margin: 4px 0;
+			}
+
+			.label {
+				font-weight: bold;
+				display: inline-block;
+				width: 30%;
+			}
+		}
+
+		@media (min-width: 769px) {
+			.trade-card {
+				display: none;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<nav th:replace="compornetTemplates/header.html :: navbar"></nav>
+	<h1 class="title-lv1">トレード日記</h1>
+
+	<div class="text-lv1">
+		<h1 class="title-lv2">取引記録登録</h1>
+		<form th:action="@{/diary-insert}" method="post" th:object="${tradeDiary}">
+			<label for="tradeDate">取引日</label>
+			<input type="date" id="tradeDate" name="tradeDate" th:value="${tradeDiary.tradeDate}" required />
+
+			<label for="symbol">銘柄コード</label>
+			<input type="text" id="symbol" th:field="*{symbol}" placeholder="例: 7203" required />
+
+			<input type="hidden" id="allTickList" th:value="${allTickList}">
+			<script th:src="@{/js/CS50001_DiaryTrade.js}"></script>
+			<ul id="results"></ul>
+
+			<label for="side">売買区分</label>
+			<select id="side" th:field="*{side}">
+				<option value="BUY_SWING">買い(スイング)</option>
+				<option value="BUY_SWING_UP">買い増し(スイング)</option>
+				<option value="BUY_DAY">買い(デイ)</option>
+				<option value="HOLD">ポジション継続</option>
+				<option value="LOOK">監視</option>
+				<option value="SELL_SWING">売り(スイング)</option>
+				<option value="SELL_SWING_DOWN">段階売り(スイング)</option>
+				<option value="SELL_DAY">売り(デイ)</option>
+			</select>
+
+			<label for="entryReason">売買理由</label>
+			<select id="entryReason" th:field="*{entryReason}">
+				<option value="押し目">押し目</option>
+				<option value="ポジション継続">ポジション継続</option>
+				<option value="ブレイク">上値ブレイク</option>
+				<option value="下方ブレイク">底値ブレイク</option>
+				<option value="板の強さ(下げ止まり)">板の強さ</option>
+				<option value="材料ニュース">材料ニュース</option>
+				<option value="なんとなく">なんとなく</option>
+			</select>
+
+			<label for="ruleObservance">ルール遵守</label>
+			<select id="ruleObservance" th:field="*{ruleObservance}">
+				<option value="○">○（守った）</option>
+				<option value="△">△（やや逸脱）</option>
+				<option value="×">×（破った）</option>
+			</select>
+
+			<label for="emotion">感情</label>
+			<select id="emotion" th:field="*{emotion}">
+				<option value="冷静">冷静</option>
+				<option value="自信あり">自信あり</option>
+				<option value="焦り">焦り</option>
+				<option value="欲張り">欲張り</option>
+				<option value="損切り恐怖">損切り恐怖</option>
+				<option value="無心">無心</option>
+			</select>
+
+			<label for="profitLoss">損益（円）</label>
+			<input type="number" id="profitLoss" step="1" th:field="*{profitLoss}" />
+
+			<label for="comment">一言メモ</label>
+			<textarea id="comment" th:field="*{comment}" rows="2" placeholder="反省や学び"></textarea>
+
+			<button type="submit">記録する</button>
+		</form>
+
+		<h1 class="title-lv2">記録一覧</h1>
+		<ul class="urlList">
+			<li class="urls"><a href="/diary-select-month">月次取引履歴</a></li>
+			<li class="urls"><a href="/Ticker-Symbol-List">週次取引履歴</a></li>
+			<li class="urls"><a href="/favorit-Ticker-search">登録履歴一覧検索</a></li>
+		</ul>
+
+		<h1 class="title-lv2">本日登録一覧</h1>
+		<table border="1" style="border-collapse: collapse; width: 100%;">
+			<thead>
+				<tr>
+					<th>日付</th>
+					<th>銘柄コード</th>
+					<th>売買区分</th>
+					<th>損益</th>
+					<th>感情</th>
+					<th>ルール遵守</th>
+					<th>コメント</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="trade : ${tradeList}">
+					<td th:text="${trade.tradeDate}"></td>
+					<td th:text="${trade.symbol}"></td>
+					<td th:text="${trade.side}"></td>
+					<td th:text="${#numbers.formatInteger(trade.profitLoss, 1, 'COMMA')}"
+						th:class="${trade.profitLoss < 0} ? 'loss' : 'gain'"></td>
+					<td th:text="${trade.emotion}"></td>
+					<td th:text="${trade.ruleObservance}"></td>
+					<td th:text="${trade.comment}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- スマホ表示：1件ごとにカード -->
+		<div th:each="trade : ${tradeList}" class="trade-card">
+			<div><span class="label">日付:</span> <span th:text="${trade.tradeDate}"></span></div>
+			<div><span class="label">銘柄コード:</span> <span th:text="${trade.symbol}"></span></div>
+			<div><span class="label">売買区分:</span> <span th:text="${trade.side}"></span></div>
+
+			<!-- 損益に色付け -->
+			<div>
+				<span class="label">損益:</span>
+				<span th:text="${#numbers.formatInteger(trade.profitLoss, 1, 'COMMA')}"
+					th:class="${trade.profitLoss < 0} ? 'loss' : 'gain'">
+				</span>
+			</div>
+
+			<div><span class="label">感情:</span> <span th:text="${trade.emotion}"></span></div>
+			<div><span class="label">ルール遵守:</span> <span th:text="${trade.ruleObservance}"></span></div>
+			<div><span class="label">コメント:</span> <span th:text="${trade.comment}"></span></div>
+		</div>
+	</div>
+</body>
+
+</html>

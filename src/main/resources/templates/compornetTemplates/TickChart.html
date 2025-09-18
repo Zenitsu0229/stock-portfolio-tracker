@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<div th:fragment="Tick-Chart">
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@4.0.1"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.1.1"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/CommonStyle.css}">
+		<style>
+			canvas {
+				display: block;
+				width: 1029px;
+				margin: 10px auto;
+				background-color: #1a1a1a;
+				border-radius: 8px;
+				box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
+			}
+
+			/* ボタンのデザイン */
+			.toggle-button {
+				background-color: #444;
+				color: #ffffff;
+				padding: 8px 15px;
+				border: none;
+				cursor: pointer;
+				margin: 10px;
+				font-size: 14px;
+				border-radius: 5px;
+			}
+
+			.toggle-button:hover {
+				background-color: #666;
+			}
+		</style>
+		<!-- JavaScriptのスクリプト -->
+		<script th:src="@{/js/chartPrint.js}"></script>
+		<canvas id="stockChart"></canvas>
+
+		<div id="interval-buttons">
+			<button onclick="updateInterval('5m')">5分足</button>
+			<button onclick="updateInterval('15m')">15分足</button>
+			<button onclick="updateInterval('30m')">30分足</button>
+			<button onclick="updateInterval('60m')">60分足</button>
+			<button onclick="updateInterval('1d')">1日足</button>
+		</div>
+	</div>
+</body>
+
+</html>

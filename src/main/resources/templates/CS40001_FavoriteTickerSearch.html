@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/CommonStyle.css}">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@4.0.1"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.1.1"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+	<title>銘柄検索</title>
+
+	<style>
+		/* ==============================
+		   フォームデザイン（タイトル横並び、入力欄縦並び）
+		   ============================== */
+		.search-form {
+			display: flex;
+			flex-direction: column;
+			/* 縦配置 */
+			gap: 15px;
+			padding: 20px;
+			border-radius: 8px;
+			width: 90%;
+			max-width: 450px;
+		}
+
+		/* ラベルと入力欄を横並び */
+		.form-group {
+			display: flex;
+			align-items: center;
+			/* 垂直中央揃え */
+			gap: 10px;
+			/* ラベルと入力欄の間隔 */
+		}
+
+		.form-group label {
+			color: #cccccc;
+			font-size: 14px;
+			white-space: nowrap;
+			/* ラベルの折り返し防止 */
+			width: 120px;
+			/* ラベルの固定幅 */
+			text-align: right;
+			/* ラベルを右寄せ */
+		}
+
+		.form-group input {
+			flex: 1;
+			/* 残りのスペースを入力欄に割り当て */
+			padding: 8px;
+			font-size: 14px;
+			border: 1px solid #444;
+			border-radius: 4px;
+			background-color: #333;
+			color: #e0e0e0;
+		}
+
+		/* 検索ボタン */
+		.search-button {
+			padding: 10px;
+			background-color: #555;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: 0.3s;
+			width: 10%;
+		}
+
+		.search-button:hover {
+			background-color: #777;
+		}
+	</style>
+	<script>
+		async function fetchChart() {
+			// 取得ID
+			var tickId = document.getElementById("searchBox").value;
+			var startDate = document.getElementById("startDate").value;
+			try {
+				let response = await fetch("http://localhost:8080/api/getChart?searchTickName=" + tickId + "&date=" + startDate);
+				let html = await response.text();
+				document.getElementById("chartContainer").innerHTML = html;
+			} catch (error) {
+				console.error("エラー:", error);
+				document.getElementById("chartContainer").innerHTML = "<p>チャートの取得に失敗しました。</p>";
+			}
+		}
+		window.onload = fetchChart;
+	</script>
+</head>
+
+<body>
+	<!-- 共通ナビをインクルード -->
+	<nav th:replace="compornetTemplates/header.html :: navbar"></nav>
+
+	<h1 class="title-lv1">お気に入り銘柄</h1>
+	<!-- 銘柄検索欄 -->
+	<h2 class="title-lv2">銘柄検索</h2>
+	<form method="get" action="/searchResultTick" class="search-form">
+		<div class="form-group">
+			<label for="searchBox">銘柄名:</label>
+			<input type="text" id="searchBox" placeholder="銘柄コードまたは銘柄名を入力" th:value="${searchResult}" name="searchBox">
+			<input type="submit" value="検索" class="search-button">
+		</div>
+
+		<div class="form-group">
+			<label for="startDate">開始日:</label>
+			<input type="date" id="startDate" name="startDate" value="2024-01-01">
+		</div>
+
+		<input type="hidden" id="allTickList" th:value="${allTickList}">
+
+		<script th:src="@{/js/CS40001_FavoritTickSearch.js}"></script>
+		<ul id="results"></ul>
+	</form>
+
+	<!-- 検索結果のチャート表示 -->
+	<th:block th:if="${searchResult} != null">
+		<h2 class="title-lv2" th:text="'検索結果: ' + ${searchResult}"></h2>
+		<div id="chartContainer">
+			<p id="loadingText">チャートを読み込み中</p>
+		</div>
+
+		<!-- チャート -->
+		<h2 class="title-lv2" th:text="'検索結果: ' + ${searchResult}"></h2>
+		<input type="hidden" id="tickerCode" th:value="${tickerCode}">
+		<div th:insert="~{compornetTemplates/TickChart.html :: Tick-Chart}" class="Tick-Chart"></div>
+
+		<!-- 空売りテーブル -->
+		<h2 class="title-lv2">空売り状況</h2>
+		<div th:insert="~{compornetTemplates/karauriNetTable.html :: karauriNet-Table}" class="karauriNet-Table"></div>
+	</th:block>
+</body>
+
+</html>

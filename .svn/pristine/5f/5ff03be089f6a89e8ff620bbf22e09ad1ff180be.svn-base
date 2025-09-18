@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+/* カレンダーのボタン */
+button {
+	background-color: #444;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	margin: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	border-radius: 5px;
+	transition: 0.3s;
+}
+
+button:hover {
+	background-color: #666;
+}
+
+/* カレンダーの表 */
+#calendar {
+	max-width: 800px;
+	border-collapse: collapse;
+	background-color: #2b2b2b;
+	/* シックなダーク背景 */
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+/* ヘッダー部分（日～土） */
+th {
+	background-color: #333;
+	/* ヘッダーの背景色 */
+	color: #f4f4f4;
+	font-size: 18px;
+}
+
+/* カレンダーの日付部分 */
+td {
+	border: 1px solid #444;
+	text-align: center;
+	font-size: 16px;
+	color: #ffffff;
+	min-width: 50px;
+	height: 60px;
+}
+
+/* 収支のスタイル */
+.profit {
+	color: red;
+	/* プラスの収支は赤 */
+	font-weight: bold;
+}
+
+.loss {
+	color: green;
+	/* マイナスの収支は緑 */
+	font-weight: bold;
+}
+
+/* 今日の日付をハイライト */
+.today {
+	background-color: #555;
+	border-radius: 5px;
+}
+
+/* カレンダーの日付リンクをスタイル設定 */
+.calendar-link {
+    text-decoration: none;  /* 下線を消す */
+    font-weight: bold;      /* 太字 */
+    color: white;           /* 白色 */
+    display: block;         /* クリックしやすくするためにブロック要素に */
+    text-align: center;     /* 中央揃え */
+    border-radius: 5px;      /* 角を丸く */
+}
+
+/* ホバー時のデザイン */
+.calendar-link:hover {
+	color: aqua;           /* 白色 */
+}
+
+.no-trade {
+    font-weight: bold;
+    color: gray;
+}
+
