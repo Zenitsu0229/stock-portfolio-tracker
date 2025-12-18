@@ -1,0 +1,103 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '4.0.0'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+    // =========================
+    // Spring Boot 基本
+    // =========================
+
+    // Web MVC（※ webmvc 単体ではなく starter-web を使う）
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // バリデーション（@NotNull など）
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    
+    // =========================
+    // Apache POI（Excel操作）
+    // =========================
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
+
+
+    // =========================
+    // DB / JPA
+    // =========================
+
+    // JPA（Hibernate）
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // PostgreSQL ドライバ（★ runtimeOnly が正解）
+    runtimeOnly 'org.postgresql:postgresql'
+
+
+    // =========================
+    // 開発補助
+    // =========================
+
+    // DevTools（本番jarには含まれない）
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+
+    // =========================
+    // Lombok
+    // =========================
+
+    // Lombok 本体
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // テスト用 Lombok
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    
+    // =========================
+    // Jsoup（HTMLパース）
+    // =========================
+    implementation 'org.jsoup:jsoup:1.15.3'
+    
+    // =========================
+    // Selenium（ブラウザ自動操作）
+    // =========================
+    implementation 'org.seleniumhq.selenium:selenium-java:4.20.0'
+
+
+    // =========================
+    // テスト
+    // =========================
+
+    // ★ テストはこれ「1つだけ」でOK
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // ★ DBを起動せずにテストを通す用（推奨）
+    testRuntimeOnly 'com.h2database:h2'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
