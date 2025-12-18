@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>銘柄詳細</title>
+	<!-- Chart.js の読み込み -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@4.0.1"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.1.1"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/CommonStyle.css}">
+
+	<style>
+		canvas {
+			display: block;
+			width: 1029px;
+			margin: 20px auto;
+			background-color: #1a1a1a;
+			border-radius: 8px;
+			box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
+		}
+
+		/* ボタンのデザイン */
+		.toggle-button {
+			background-color: #444;
+			color: #ffffff;
+			padding: 8px 15px;
+			border: none;
+			cursor: pointer;
+			margin: 10px;
+			font-size: 14px;
+			border-radius: 5px;
+		}
+
+		.toggle-button:hover {
+			background-color: #666;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- 共通ナビをインクルード -->
+	<nav th:replace="compornetTemplates/header.html :: navbar"></nav>
+
+	<h2 th:text="${tickName} + '（' + ${tickerCode} + '）の詳細'"></h2>
+	<input type="hidden" id="tickerCode" th:value="${tickerCode}">
+
+	<h3>株価チャート</h3>
+
+	<!-- ✅ 開始日・終了日を選択できるフォーム -->
+	<div id="date-selection">
+		<label for="startDate">開始日：</label>
+		<input type="date" id="startDate">
+
+		<label for="endDate">終了日：</label>
+		<input type="date" id="endDate">
+
+		<button onclick="updateStockChartWithDates()">適用</button>
+	</div>
+
+	<div th:insert="~{compornetTemplates/TickChart.html :: Tick-Chart}" class="Tick-Chart"></div>
+
+	<!-- ✅ 取引履歴の表示・非表示ボタン -->
+	<button class="toggle-button" onclick="toggleTable('tradeHistoryTable')">取引履歴</button>
+	<button class="toggle-button" onclick="toggleTable('karauriTable')">空売り残高情報の表示・非表示</button>
+	<table id="tradeHistoryTable">
+		<thead>
+			<tr>
+				<th>日付</th>
+				<th>注文番号</th>
+				<th>売買</th>
+				<th>取引タイプ</th>
+				<th>注文価格</th>
+				<th>注文数量</th>
+				<th>約定数量</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="trade : ${tradeHistory}">
+				<td th:text="${trade.orderDatetime}"></td>
+				<td th:text="${trade.orderNumber}"></td>
+				<td th:text="${trade.buySell}"></td>
+				<td th:text="${trade.tradeType}"></td>
+				<td th:text="${trade.orderPrice}"></td>
+				<td th:text="${trade.orderQuantity}"></td>
+				<td th:text="${trade.contractQuantity}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:insert="~{compornetTemplates/karauriNetTable.html :: karauriNet-Table}" class="karauriNet-Table"></div>
+
+</body>
+</html>

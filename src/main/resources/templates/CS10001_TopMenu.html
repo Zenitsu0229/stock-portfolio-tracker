@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>トップメニュー</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/CommonStyle.css}">
+	<script th:src="@{/js/CS10001_TopMenu.js}"></script>
+</head>
+
+<body>
+	
+	<!-- 共通ナビをインクルード -->
+	<nav th:replace="compornetTemplates/header.html :: navbar"></nav>
+
+	<style>
+		/* リストのスタイル */
+		.urlList {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		.urls {
+			margin: 20px 20px;
+			padding: 10px;
+			border-radius: 5px;
+			transition: transform 0.2s ease-in-out;
+		}
+
+		.urls:hover {
+			transform: scale(1.01);
+			background-color: grey;
+		}
+
+		/* リンクのスタイル */
+		a {
+			text-decoration: none;
+			color: #0073e6;
+			font-weight: bold;
+			font-size: 18px;
+		}
+
+		a:hover {
+			color: #005bb5;
+		}
+
+		.roolList {
+			list-style-type: none;
+			/* デフォルトのリストスタイルを削除 */
+			padding: 0;
+			margin: 20px;
+		}
+
+		/* 各リストアイテムのスタイル */
+		.rools {
+			padding: 12px;
+			font-size: 16px;
+			color: aliceblue;
+			font-weight: bold;
+		}
+
+		/* 最後のリストアイテムのボーダーを削除 */
+		.rools:last-child {
+			border-bottom: none;
+		}
+	</style>
+	
+	<h1 class="title-lv1">ホーム</h1>
+	<div class="text-lv1">
+		<h1 class="title-lv2">取引自分ルール</h1>
+		<ul class="roolList">
+			<li class="rools">・上値を購入しない。必ず様子見をする（上に爆発したものは仕方ないと割り切る）</li>
+			<li class="rools">・Twitterを見ての購入を禁止（イナゴ禁止）</li>
+			<li class="rools">・購入上限を見定める（全ぶりはNG）</li>
+		</ul>
+
+		<h1 class="title-lv2">機能一覧</h1>
+		<ul class="urlList">
+			<li class="urls"><a href="/profit-calendar">損益カレンダー</a></li>
+			<li class="urls"><a href="/Ticker-Symbol-List">取引銘柄一覧 (これまでの取引した銘柄を表示)</a></li>
+			<li class="urls"><a href="/favorit-Ticker-search">お気に入り銘柄</a></li>
+			<li class="urls"><a href="/diary-trade-top">トレード日記</a></li>
+		</ul>
+
+
+		<h1 class="title-lv2">URL一覧</h1>
+		<ul class="urlList">
+			<li class="urls"><a href="https://japan-kabuka.com/chart/?id=&candledate=2024-04-01#google_vignette"
+					target="_blank" rel="noopener noreferrer">機関投資家の足あと</a></li>
+			<li class="urls"><a href="https://karauri.net/" target="_blank" rel="noopener noreferrer">空売りネット</a></li>
+			<li class="urls"><a href="https://kabutan.jp/" target="_blank" rel="noopener noreferrer">株探</a></li>
+		</ul>
+	</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/CS20001_ProfitCalendar.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/CommonStyle.css}">
+	<script th:src="@{/js/CS20001_ProfitCalendar.js}"></script>
+	<title>損益カレンダー</title>
+</head>
+<style>
+	#currentMonth {
+	    font-size: 2rem;           /* 大きめの文字サイズ */
+	    color: #f0f0f0;            /* 明るめの文字色（白に近い） */
+	    text-align: center;        /* 中央揃え */
+	    margin: 20px 0;            /* 上下に余白 */
+	    letter-spacing: 1px;       /* 字間少し広め */
+	}
+
+</style>
+<body>
+	<!-- 共通ナビをインクルード -->
+	<nav th:replace="compornetTemplates/header.html :: navbar"></nav>
+
+	<h1 class="title-lv1">損益カレンダー</h1>
+	<div class="text-lv1">
+		<span id="currentMonth"></span><br>
+		<button onclick="prevMonth()">前の月</button>
+		<button onclick="nextMonth()">次の月</button>
+	
+	<table id="calendar">
+		<thead>
+			<tr>
+				<th>日</th>
+				<th>月</th>
+				<th>火</th>
+				<th>水</th>
+				<th>木</th>
+				<th>金</th>
+				<th>土</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	</div>
+</body>
+
+</html>
