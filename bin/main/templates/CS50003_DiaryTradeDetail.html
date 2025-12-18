@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>トレード日記作成</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/CommonStyle.css}">
+	<style>
+		form {
+			max-width: 600px;
+			padding-left: 30px;
+			border-radius: 10px;
+		}
+
+		label {
+			display: block;
+			margin-top: 15px;
+		}
+
+		input,
+		select,
+		textarea {
+			width: 100%;
+			padding: 8px;
+			background-color: #333;
+			color: #fff;
+			border: 1px solid #555;
+			border-radius: 5px;
+		}
+
+		button {
+			margin-top: 20px;
+			padding: 10px;
+			background-color: #4caf50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			width: 100%;
+		}
+
+		button:hover {
+			background-color: #45a049;
+		}
+
+		.gain {
+			color: red;
+		}
+
+		.loss {
+			color: #00dd00;
+			/* 暗めの緑（背景黒向け） */
+		}
+
+		/* リストのスタイル */
+		.urlList {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		.urls {
+			margin: 20px 20px;
+			padding: 10px;
+			border-radius: 5px;
+			transition: transform 0.2s ease-in-out;
+		}
+
+		.urls:hover {
+			transform: scale(1.01);
+			background-color: grey;
+		}
+
+		/* リンクのスタイル */
+		a {
+			text-decoration: none;
+			color: #0073e6;
+			font-weight: bold;
+			font-size: 18px;
+		}
+
+		a:hover {
+			color: #005bb5;
+		}
+
+
+		@media (max-width: 768px) {
+			table {
+				display: none;
+			}
+
+			.trade-card {
+				border: 1px solid #444;
+				margin: 10px 0;
+				padding: 10px;
+				background-color: #222;
+				color: #ddd;
+				border-radius: 8px;
+			}
+
+			.trade-card div {
+				margin: 4px 0;
+			}
+
+			.label {
+				font-weight: bold;
+				display: inline-block;
+				width: 30%;
+			}
+		}
+
+		@media (min-width: 769px) {
+			.trade-card {
+				display: none;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<nav th:replace="compornetTemplates/header.html :: navbar"></nav>
+	<h1 class="title-lv1">トレード日記</h1>
+	<div class="text-lv1">
+		<h1 class="title-lv2">日記一覧</h1>
+		<table border="1" style="border-collapse: collapse; width: 100%;">
+			<thead>
+				<tr>
+					<th style="min-width: 100px;">日付</th>
+					<th>銘柄コード</th>
+					<th>売買区分</th>
+					<th>損益</th>
+					<th>感情</th>
+					<th>ルール遵守</th>
+					<th>コメント</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="trade : ${tradeList}">
+					<td th:text="${trade.tradeDate}"></td>
+					<td th:text="${trade.symbol}"></td>
+					<td th:text="${trade.side}"></td>
+					<td th:text="${#numbers.formatInteger(trade.profitLoss, 1, 'COMMA')}"
+						th:class="${trade.profitLoss < 0} ? 'loss' : 'gain'"></td>
+					<td th:text="${trade.emotion}"></td>
+					<td th:text="${trade.ruleObservance}"></td>
+					<td th:text="${trade.comment}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- スマホ表示：1件ごとにカード -->
+		<div th:each="trade : ${tradeList}" class="trade-card">
+			<div><span class="label">日付:</span> <span th:text="${trade.tradeDate}"></span></div>
+			<div><span class="label">銘柄コード:</span> <span th:text="${trade.symbol}"></span></div>
+			<div><span class="label">売買区分:</span> <span th:text="${trade.side}"></span></div>
+
+			<!-- 損益に色付け -->
+			<div>
+				<span class="label">損益:</span>
+				<span th:text="${#numbers.formatInteger(trade.profitLoss, 1, 'COMMA')}"
+					th:class="${trade.profitLoss < 0} ? 'loss' : 'gain'">
+				</span>
+			</div>
+
+			<div><span class="label">感情:</span> <span th:text="${trade.emotion}"></span></div>
+			<div><span class="label">ルール遵守:</span> <span th:text="${trade.ruleObservance}"></span></div>
+			<div><span class="label">コメント:</span> <span th:text="${trade.comment}"></span></div>
+		</div>
+	</div>
+</body>
+
+</html>

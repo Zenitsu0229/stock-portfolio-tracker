@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="navbar">
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+			.title-nav {
+				display: flex;
+				align-items: center;
+				margin-top: 30px;
+				padding: 10px 20px;
+				background-color: rgb(55, 56, 60);
+				position: relative;
+			}
+
+			.logo a {
+				color: white;
+				text-decoration: none;
+				font-size: 1.5em;
+				font-weight: bold;
+			}
+
+			.title-nav-links {
+				list-style: none;
+				display: flex;
+				margin: 0;
+				padding: 0;
+			}
+
+			.title-nav-links li {
+				margin-left: 20px;
+			}
+
+			.title-nav-links a {
+				color: white;
+				text-decoration: none;
+				font-size: 1.2em;
+			}
+
+			.title-nav-links a:hover {
+				color: #ff9800;
+			}
+
+			/* Mobile Menu Button */
+			.menu-icon {
+				display: none;
+				flex-direction: column;
+				cursor: pointer;
+			}
+
+			.menu-icon div {
+				width: 25px;
+				height: 3px;
+				background-color: white;
+				margin: 4px;
+				transition: all 0.3s ease;
+			}
+
+			/* Responsive Styles */
+			@media (max-width: 768px) {
+
+				.title-nav {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					margin-top: 60px;
+					padding: 10px 20px;
+					background-color: rgb(55, 56, 60);
+					position: relative;
+				}
+
+				.title-nav-links {
+					display: none;
+					flex-direction: column;
+					width: 100%;
+					position: absolute;
+					top: 60px;
+					left: 0;
+					background-color: rgb(55, 56, 60);
+					z-index: 9999;
+					transition: max-height 0.3s ease-in-out;
+					overflow: hidden;
+					max-height: 0;
+					/* 初期状態では隠す */
+				}
+
+				.title-nav-links.active {
+					display: flex;
+					max-height: 900px;
+					/* メニューが展開されたときの高さ */
+				}
+
+				.title-nav-links li {
+					margin: 0;
+					text-align: center;
+					width: 100%;
+				}
+
+				.title-nav-links a {
+					font-size: 1.5em;
+					padding: 10px;
+					display: block;
+					width: 100%;
+				}
+
+				.menu-icon {
+					display: flex;
+				}
+
+				/* メニューアイコンのアニメーション */
+				.menu-icon.active div:nth-child(1) {
+					transform: rotate(45deg) translate(5px, 5px);
+				}
+
+				.menu-icon.active div:nth-child(2) {
+					opacity: 0;
+				}
+
+				.menu-icon.active div:nth-child(3) {
+					transform: rotate(-45deg) translate(5px, -5px);
+				}
+			}
+
+			/* Responsive Styles */
+			@media (max-width: 460px) {
+				.title-nav {
+					padding: 0px;
+				}
+
+				.title-nav-links {
+					display: none;
+					flex-direction: column;
+					width: 100%;
+					position: absolute;
+					top: 60px;
+					left: 0;
+					background-color: rgb(55, 56, 60);
+					z-index: 9999;
+					transition: max-height 0.3s ease-in-out;
+					overflow: hidden;
+					max-height: 0;
+					/* 初期状態では隠す */
+				}
+
+				.title-nav-links.active {
+					display: flex;
+				}
+
+				.title-nav-links li {
+					margin: 0;
+					text-align: center;
+					padding: 15px 0;
+					width: 100%;
+				}
+
+				.title-nav-links a {
+					font-size: 1.5em;
+					padding: 10px;
+					display: block;
+					width: 100%;
+				}
+
+				.menu-icon {
+					display: flex;
+				}
+
+				/* メニューアイコンのアニメーション */
+				.menu-icon.active div:nth-child(1) {
+					transform: rotate(45deg) translate(5px, 5px);
+				}
+
+				.menu-icon.active div:nth-child(2) {
+					opacity: 0;
+				}
+
+				.menu-icon.active div:nth-child(3) {
+					transform: rotate(-45deg) translate(5px, -5px);
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="title-nav">
+			<div class="logo">
+				<a href="/TopMenu">トレード分析ツール</a>
+			</div>
+			<div class="menu-icon">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<ul class="title-nav-links">
+				<li><a href="/profit-calendar">損益カレンダー</a></li>
+				<li><a href="/Ticker-Symbol-List">取引銘柄一覧</a></li>
+				<li><a href="/favorit-Ticker-search">お気に入り銘柄</a></li>
+				<li><a href="/diary-trade-top">トレード日記</a></li>
+			</ul>
+		</div>
+
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const menuIcon = document.querySelector('.menu-icon');
+				const navLinks = document.querySelector('.title-nav-links');
+
+				menuIcon.addEventListener('click', () => {
+					navLinks.classList.toggle('active');
+					menuIcon.classList.toggle('active'); // アイコンのアニメーションを制御
+				});
+			});
+		</script>
+	</body>
+</nav>
+
+</html>

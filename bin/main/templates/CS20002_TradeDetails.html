@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/CS21001_TradeDetails.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/CommonStyle.css}">
+</head>
+
+<body>
+	<!-- 共通ナビをインクルード -->
+	<nav th:replace="compornetTemplates/header.html :: navbar"></nav>
+
+	<a href="/profit-calendar">損益カレンダー</a>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>銘柄名</th>
+				<th>コード</th>
+				<th>市場</th>
+				<th>取引種別</th>
+				<th>売単価</th>
+				<th>取得単価</th>
+				<th>数量</th>
+				<th>実現損益</th>
+			</tr>
+		</thead>
+		<h3 th:text="'取引日：'+${date}"></h3>
+		<tbody>
+			<tr th:each="trade : ${transactions}">
+				<td th:text="${trade.stockName}"></td>
+				<td th:text="${trade.tickerCode}"></td>
+				<td th:text="${trade.market}"></td>
+				<td th:text="${trade.tradeType}"></td>
+				<td th:text="${trade.pricePerUnit} + '円'"></td>
+				<td th:text="${trade.avgAcquisitionPrice} + '円'"></td>
+				<td th:text="${trade.quantity}"></td>
+				<!-- 実現損益のクラスを適用 -->
+				<td th:text="${trade.realizedProfitLoss} + '円'"
+				    th:class="${#strings.startsWith(trade.realizedProfitLoss, '-') ? 'loss' : 'profit'}">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+
+</html>

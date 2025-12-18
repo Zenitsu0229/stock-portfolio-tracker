@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>取引銘柄一覧</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/CommonStyle.css}">
+	<style>
+		.search-form {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 10px 0;
+			margin-left: 20px;
+			background: none;
+			font-family: sans-serif;
+		}
+
+		.search-form label {
+			font-weight: 500;
+			font-size: 14px;
+		}
+
+		.search-form input[type="date"] {
+			padding: 6px 10px;
+			border: 1px solid #999;
+			border-radius: 0;
+			/* 四角形 */
+			font-size: 14px;
+			width: 150px;
+			background: transparent;
+			color: white;
+			/* 追加：文字色を白にする */
+		}
+
+		.search-form input[type="date"]:focus {
+			outline: none;
+		}
+
+		.search-form button {
+			padding: 6px 18px;
+			background: white;
+			border: 1px solid #444;
+			border-radius: 0;
+			/* 四角形 */
+			font-size: 14px;
+			cursor: pointer;
+		}
+
+		.search-form button:hover {
+			background: #f0f0f0;
+		}
+
+		table {
+			border-collapse: collapse;
+			border-radius: 5px;
+			font-size: 14px;
+		}
+
+		th,
+		td {
+			padding: 6px;
+			text-align: left;
+			padding-left: 12px;
+			/* ← ここで左側に余白を追加 */
+		}
+
+		th {
+			color: #ddd;
+		}
+
+		td {
+			color: #ddd;
+		}
+
+		.profit-negative {
+			color: #4CAF50;
+			/* やや暗めで落ち着いたグリーン */
+			font-weight: bold;
+		}
+
+		.profit-positive {
+			color: #FF6666;
+			/* 明るめの赤 */
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- 共通ナビをインクルード -->
+	<nav th:replace="compornetTemplates/header.html :: navbar"></nav>
+
+	<h1 class="title-lv1">取引銘柄一覧</h1>
+
+	<h2 class="title-lv2">期間検索</h2>
+	<form method="get" action="/stocks/list" class="search-form">
+		<label for="startDate">開始日:</label>
+		<input type="date" id="startDate" name="startDate" th:value="${startDate}">
+
+		<label for="endDate">終了日:</label>
+		<input type="date" id="endDate" name="endDate" th:value="${endDate}">
+
+		<button type="submit">検索</button>
+	</form>
+
+	<h2 class="title-lv2">銘柄一覧</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>銘柄名</th>
+				<th>コード</th>
+				<th>損益</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="ticker : ${tickerList}">
+				<td><a th:href="@{/Ticker-Detail(ticker=${ticker.tickerCode})}" th:text="${ticker.stockName}"></a></td>
+				<td th:text="${ticker.tickerCode}"></td>
+				<td th:text="'¥' + ${#numbers.formatInteger(ticker.realizedProfitLoss, 0, 'COMMA')}"
+					th:class="${ticker.realizedProfitLoss.startsWith('-')} ? 'profit-negative' : 'profit-positive'">
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>
