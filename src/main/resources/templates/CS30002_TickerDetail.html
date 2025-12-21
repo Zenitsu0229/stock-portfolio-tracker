@@ -42,7 +42,7 @@
 
 <body>
 	<!-- 共通ナビをインクルード -->
-	<nav th:replace="compornetTemplates/header.html :: navbar"></nav>
+	<nav th:replace="~{compornetTemplates/header.html :: navbar}"></nav>
 
 	<h2 th:text="${tickName} + '（' + ${tickerCode} + '）の詳細'"></h2>
 	<input type="hidden" id="tickerCode" th:value="${tickerCode}">

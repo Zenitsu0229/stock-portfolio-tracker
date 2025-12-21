@@ -39,6 +39,14 @@ public class CS30002_TicherDetailController {
 		// 空売り履歴を取得
 		karauriNetJsonFileEntityList = scrapingKarauriNet.getScrapeShortBalance(ticker);
 
+		// 取引履歴が存在しない場合
+		if(tradeOrdersHistoryList.size() == 0 ) {
+			model.addAttribute("tickName", "取引履歴が存在しません");
+			model.addAttribute("tickerCode", "再度検索してください");
+			model.addAttribute("tradeHistory", tradeOrdersHistoryList);
+			model.addAttribute("karauriNetJsonFileEntityList", karauriNetJsonFileEntityList);
+			return ScreanConstats.CSID_30002_TickerDetail;
+		}
 		// 取引銘柄
 		model.addAttribute("tickName", tradeOrdersHistoryList.get(0).getStockName());
 		model.addAttribute("tickerCode", tradeOrdersHistoryList.get(0).getStockCode());

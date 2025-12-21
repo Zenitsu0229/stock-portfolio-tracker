@@ -110,7 +110,7 @@ public class ProfitLossService {
 		String sql = "SELECT STOCK_NAME, "
 			+ "TICKER_CODE, "
 			+ "SUM(CAST(REPLACE(REALIZED_PROFIT_LOSS, ',', '') AS SIGNED)) AS TOTAL_PROFIT_LOSS "
-			+ "FROM trade_records";
+			+ "FROM TRADE_RECORDS";
 		List<Object> params = new ArrayList<>();
 		List<TradeRecordEntity> selectTickerList = new ArrayList<TradeRecordEntity>();
 
