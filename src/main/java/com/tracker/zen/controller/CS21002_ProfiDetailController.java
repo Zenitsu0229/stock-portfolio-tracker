@@ -13,6 +13,11 @@ import com.tracker.zen.component.CS21001_ProfiDetailComponent;
 import com.tracker.zen.constats.ScreanConstats;
 import com.tracker.zen.service.ProfitLossService;
 
+/*
+ * ProfiDetailController
+ * 損益詳細画面
+ * 
+ */
 @Controller
 public class CS21002_ProfiDetailController {
 
