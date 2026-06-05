@@ -3,6 +3,7 @@ package com.tracker.zen.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +17,16 @@ import com.tracker.zen.constats.ScreanConstats;
 @Controller
 public class CS40001_FavoritTickSearchController {
 
+	@Value("${app.base.url}")
+	private String baseUrl;
+
 	@GetMapping("/favorit-Ticker-search")
 	public String showTopMenu(Model model) {
 
 		// 全銘柄を取得する
 		ApiCommonExtends apiExtend = new ApiCommonExtends();
 		model.addAttribute("allTickList", apiExtend.getAllTickList());
+		model.addAttribute("baseUrl", baseUrl);
 
 		return ScreanConstats.CSID_40001_FavoriteTickerSearch;
 	}
@@ -60,6 +65,7 @@ public class CS40001_FavoritTickSearchController {
 		// 全銘柄を取得する
 		ApiCommonExtends apiExtend = new ApiCommonExtends();
 		model.addAttribute("allTickList", apiExtend.getAllTickList());
+		model.addAttribute("baseUrl", baseUrl);
 
 		// 空売り状況をセットする
 		model.addAttribute("karauriNetJsonFileEntityList", karauriNetJsonFileEntityList);

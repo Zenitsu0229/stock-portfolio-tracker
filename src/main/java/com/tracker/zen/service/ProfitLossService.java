@@ -1,6 +1,5 @@
 package com.tracker.zen.service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,18 +36,10 @@ public class ProfitLossService {
 		List<Map<String, Object>> results = jdbcTemplate.queryForList(sql);
 		Map<String, Integer> profitLossData = new HashMap<>();
 
-		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd"); // SQL の日付フォーマット
-		SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd"); // JavaScript 用フォーマット
-
 		for (Map<String, Object> row : results) {
-			try {
-				String tradeDate = row.get("取引日").toString();
-				String formattedDate = outputFormat.format(inputFormat.parse(tradeDate)); // フォーマット変換
-				int profitLoss = ((Number) row.get("総実現損益")).intValue(); // 損益額を取得
-				profitLossData.put(formattedDate, profitLoss);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			String tradeDate = row.get("取引日").toString();
+			int profitLoss = ((Number) row.get("総実現損益")).intValue();
+			profitLossData.put(tradeDate, profitLoss);
 		}
 
 		return profitLossData;

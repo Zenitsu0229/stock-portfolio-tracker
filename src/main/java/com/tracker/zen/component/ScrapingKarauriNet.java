@@ -29,6 +29,9 @@ public class ScrapingKarauriNet {
 	
 			// 📌 空売り残高のテーブルを取得（id="sort" の table）
 			Element table = doc.selectFirst("table#sort");
+			if (table == null) {
+				return karauriNetList;
+			}
 
 			// 📌 テーブルの行を取得
 			Elements rows = table.select("tbody tr");

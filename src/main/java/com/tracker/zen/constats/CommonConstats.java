@@ -34,9 +34,6 @@ public class CommonConstats {
 	public static String CONTACT_ID_OTHER_REQUEST = "3";
 	public static String CONTACT_ID_OTH = "OTH";
 
-	// Chormドライバー
-	public static String DRIVER_URL = "C:\\chromedriver";
-
 	// sqlファイル
 	public static String SQL_FOLDER = "sql/";
 

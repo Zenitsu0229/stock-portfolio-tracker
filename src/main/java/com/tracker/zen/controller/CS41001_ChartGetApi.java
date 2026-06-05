@@ -17,6 +17,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -39,6 +40,9 @@ public class CS41001_ChartGetApi {
 
 	@Autowired
 	private TradeOrdersService stockService;
+
+	@Value("${app.chromedriver.path}")
+	private String chromeDriverPath;
 
 	private final RestTemplate restTemplate = new RestTemplate();
 
@@ -189,7 +193,6 @@ public class CS41001_ChartGetApi {
 		}
 
 		// `ChromeDriver` のパス設定
-		String chromeDriverPath = "C:\\chromedriver\\chromedriver.exe";
 		System.setProperty("webdriver.chrome.driver", chromeDriverPath);
 
 		// `ChromeDriver` の `Service` を明示的に指定 (プロセス最適化)

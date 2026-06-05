@@ -41,7 +41,7 @@ async function fetchStockData() {
 	}
 	
 	try {
-		const url = `http://localhost:8080/api/external-stock-data?ticker=${encodeURIComponent(code)}&interval=${currentInterval}`;
+		const url = `/api/external-stock-data?ticker=${encodeURIComponent(code)}&interval=${currentInterval}`;
 		const response = await fetch(url);
 
 		// エラーの場合

@@ -1,6 +1,7 @@
 package com.tracker.zen.Entity;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 
@@ -62,30 +63,30 @@ public class TradeRecordEntity {
 
 	public static TradeRecordEntity mapRowToTradeRecord(Map<String, Object> row) {
 		TradeRecordEntity record = new TradeRecordEntity();
-		record.setTradeDate((String) row.get("TRADE_DATE"));
-		record.setSettlementDate((String) row.get("SETTLEMENT_DATE"));
-		record.setTickerCode((String) row.get("TICKER_CODE"));
-		record.setStockName((String) row.get("STOCK_NAME"));
-		record.setAccountType((String) row.get("ACCOUNT_TYPE"));
-		record.setMarket((String) row.get("MARKET"));
-		record.setTradeType((String) row.get("TRADE_TYPE"));
-		record.setCreditType((String) row.get("CREDIT_TYPE"));
-		record.setRealizedProfitLoss((String) row.get("REALIZED_PROFIT_LOSS"));
-		record.setRealizedProfitLossForeign((String) row.get("REALIZED_PROFIT_LOSS_FOREIGN"));
-		record.setPricePerUnit((String) row.get("PRICE_PER_UNIT"));
-		record.setQuantity((String) row.get("QUANTITY"));
-		record.setSellSettlementAmount((String) row.get("SELL_SETTLEMENT_AMOUNT"));
-		record.setSellSettlementAmountForeign((String) row.get("SELL_SETTLEMENT_AMOUNT_FOREIGN"));
-		record.setAvgAcquisitionPrice((String) row.get("AVG_ACQUISITION_PRICE"));
-		record.setAvgAcquisitionPriceForeign((String) row.get("AVG_ACQUISITION_PRICE_FOREIGN"));
-		record.setAcquisitionDate((String) row.get("ACQUISITION_DATE"));
-		record.setAcquisitionQuantity((String) row.get("ACQUISITION_QUANTITY"));
-		record.setSettlementAmount((String) row.get("SETTLEMENT_AMOUNT"));
-		record.setSettlementAmountForeign((String) row.get("SETTLEMENT_AMOUNT_FOREIGN"));
-		record.setInvestmentAmountForeign((String) row.get("INVESTMENT_AMOUNT_FOREIGN"));
-		record.setCfdAccount((String) row.get("CFD_ACCOUNT"));
-		record.setCurrency((String) row.get("CURRENCY"));
-		record.setExchangeRate((String) row.get("EXCHANGE_RATE"));
+		record.setTradeDate(Objects.toString(row.get("TRADE_DATE"), null));
+		record.setSettlementDate(Objects.toString(row.get("SETTLEMENT_DATE"), null));
+		record.setTickerCode(Objects.toString(row.get("TICKER_CODE"), null));
+		record.setStockName(Objects.toString(row.get("STOCK_NAME"), null));
+		record.setAccountType(Objects.toString(row.get("ACCOUNT_TYPE"), null));
+		record.setMarket(Objects.toString(row.get("MARKET"), null));
+		record.setTradeType(Objects.toString(row.get("TRADE_TYPE"), null));
+		record.setCreditType(Objects.toString(row.get("CREDIT_TYPE"), null));
+		record.setRealizedProfitLoss(Objects.toString(row.get("REALIZED_PROFIT_LOSS"), null));
+		record.setRealizedProfitLossForeign(Objects.toString(row.get("REALIZED_PROFIT_LOSS_FOREIGN"), null));
+		record.setPricePerUnit(Objects.toString(row.get("PRICE_PER_UNIT"), null));
+		record.setQuantity(Objects.toString(row.get("QUANTITY"), null));
+		record.setSellSettlementAmount(Objects.toString(row.get("SELL_SETTLEMENT_AMOUNT"), null));
+		record.setSellSettlementAmountForeign(Objects.toString(row.get("SELL_SETTLEMENT_AMOUNT_FOREIGN"), null));
+		record.setAvgAcquisitionPrice(Objects.toString(row.get("AVG_ACQUISITION_PRICE"), null));
+		record.setAvgAcquisitionPriceForeign(Objects.toString(row.get("AVG_ACQUISITION_PRICE_FOREIGN"), null));
+		record.setAcquisitionDate(Objects.toString(row.get("ACQUISITION_DATE"), null));
+		record.setAcquisitionQuantity(Objects.toString(row.get("ACQUISITION_QUANTITY"), null));
+		record.setSettlementAmount(Objects.toString(row.get("SETTLEMENT_AMOUNT"), null));
+		record.setSettlementAmountForeign(Objects.toString(row.get("SETTLEMENT_AMOUNT_FOREIGN"), null));
+		record.setInvestmentAmountForeign(Objects.toString(row.get("INVESTMENT_AMOUNT_FOREIGN"), null));
+		record.setCfdAccount(Objects.toString(row.get("CFD_ACCOUNT"), null));
+		record.setCurrency(Objects.toString(row.get("CURRENCY"), null));
+		record.setExchangeRate(Objects.toString(row.get("EXCHANGE_RATE"), null));
 		return record;
 	}
 
